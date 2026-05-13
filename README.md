@@ -1,50 +1,73 @@
-# Welcome to your Expo app 👋
+🎵 Musik
+A personal music player app built with React Native (Expo) that streams your music collection from the cloud — anywhere, anytime.
+✨ Features
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Cloud streaming — Music stored on Cloudflare R2, streamed from anywhere with internet
+Auto library — Add an MP3 to R2 and it appears in the app instantly (via Cloudflare Worker)
+Offline support — Download songs to your phone and listen without internet
+Playlists — Create, manage and play custom playlists stored locally on device
+Album art — Automatically fetched from the iTunes API
+Mini player — Controls visible while browsing your library
+Search — Filter songs by title, artist or album
+Repeat modes — Repeat off / repeat all / repeat one
+Dark theme — Deep navy and blue UI designed for AMOLED screens
 
-## Get started
+🛠 Tech Stack
+LayerTechnologyApp frameworkReact Native (Expo)Audio playbackexpo-avCloud storageCloudflare R2Auto song APICloudflare WorkerAlbum artiTunes Search APIOffline storageexpo-file-systemPlaylistsAsyncStorageNavigationExpo Router
+🚀 Architecture
+Phone App (React Native)
+      │
+      ├── Cloudflare Worker ──► R2 Bucket (MP3 files)
+      │   (auto song list)
+      │
+      ├── iTunes API (album art)
+      │
+      └── Local Storage (playlists, downloaded songs)
+📱 Getting Started
+Prerequisites
 
-1. Install dependencies
+Node.js
+Expo CLI (npm install -g expo-cli)
+Expo Go app on your phone (for development)
 
-   ```bash
-   npm install
-   ```
+Run locally
+bashgit clone https://github.com/YOUR_USERNAME/MusicPlayer.git
+cd MusicPlayer
+npm install
+npx expo start
+Scan the QR code with Expo Go.
+Adding new music
 
-2. Start the app
+Upload any MP3 file to your Cloudflare R2 bucket
+Open the app — your song appears automatically
 
-   ```bash
-   npx expo start
-   ```
+Building APK
+basheas build -p android --profile preview
+📁 Project Structure
+MusicPlayer/
+├── app/
+│   ├── (tabs)/
+│   │   ├── index.tsx        # Library screen
+│   │   ├── playlists.tsx    # Playlists screen
+│   │   └── _layout.tsx      # Tab navigation
+│   ├── player.tsx           # Player screen
+│   └── _layout.tsx          # Root layout
+├── context/
+│   └── AudioContext.tsx     # Global audio state
+├── hooks/
+│   ├── useDownload.ts       # Offline download logic
+│   └── usePlaylists.ts      # Playlist management
+├── constants/
+│   └── songs.ts             # Fetches song list from Worker
+└── utils/
+    └── artwork.ts           # iTunes album art fetcher
+☁️ Cloudflare Setup
 
-In the output, you'll find options to open the app in a
+R2 Bucket — stores all MP3 files with public access enabled
+Worker — scans the bucket and returns a JSON song list automatically
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+🔒 Notes
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+This app is for personal use only
+Music is streamed from your own Cloudflare R2 bucket
+No user data is collected or shared
