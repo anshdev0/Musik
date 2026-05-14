@@ -96,5 +96,5 @@ Musik/
 ## Notes
 
 - Built for personal use
-- Music is streamed from your own Cloudflare R2 bucket
+- Music is streamed from my own Cloudflare R2 bucket
 - No user data is collected or shared
